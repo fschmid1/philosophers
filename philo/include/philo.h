@@ -47,6 +47,6 @@ long ft_atol(const char *str);
 int ft_isdigit(int arg);
 size_t ft_strlen(const char *str);
 void free_all(t_rules *rules, t_philo **philos);
-void	print_philo(t_philo *philo, char *color, char *state)
+void	print_philo(t_philo *philo, char *color, char *state);
 
 #endif
