@@ -1,10 +1,48 @@
 #include "../include/philo.h"
 
+static bool	check_number(int argc, char **argv)
+{
+	int	j;
+	int	i;
+
+	i = 0;
+	while (++i < argc)
+	{
+		j = -1;
+		while (argv[i][++j] != '\0')
+		{
+			if (!ft_isdigit(argv[i][j]))
+				return (false);
+		}
+	}
+	return (true);
+}
+
+static bool	check_size(int argc, char **argv)
+{
+	int			i;
+
+	i = 0;
+	while (++i < argc)
+	{
+		if (ft_atol(argv[i]) < 1)
+			return (false);
+		if (ft_strlen(argv[i]) > 10)
+			return (false);
+		if (ft_atol(argv[i]) > INT_MAX)
+			return (false);
+	}
+	return (true);
+}
+
 static bool	check_input(int argc, char **argv)
 {
-	(void)argv;
 	if (argc != 6)
-		return (printf("%sWrong arguments%s\n", RED, DEFAULT), false);
+		return (printf("%sFive arguments are needed%s\n", RED, DEFAULT), false);
+	if (!check_number(argc, argv))
+		return (printf("%sArguments must all be numbers%s\n", RED, DEFAULT), false);
+	if (!check_size(argc, argv))
+		return (printf("%sOnly numbers between 1 and %d are allowed%s\n", RED, INT_MAX, DEFAULT), false);
 	return (true);
 }
 
