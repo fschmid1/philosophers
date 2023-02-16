@@ -40,9 +40,11 @@ static bool	check_input(int argc, char **argv)
 	if (argc != 6)
 		return (printf("%sFive arguments are needed%s\n", RED, DEFAULT), false);
 	if (!check_number(argc, argv))
-		return (printf("%sArguments must all be numbers%s\n", RED, DEFAULT), false);
+		return (printf("%sArguments must all be numbers%s\n",
+				RED, DEFAULT), false);
 	if (!check_size(argc, argv))
-		return (printf("%sOnly numbers between 1 and %d are allowed%s\n", RED, INT_MAX, DEFAULT), false);
+		return (printf("%sOnly numbers between 1 and %d are allowed%s\n",
+				RED, INT_MAX, DEFAULT), false);
 	return (true);
 }
 

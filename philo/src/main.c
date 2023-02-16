@@ -3,8 +3,12 @@
 int	main(int argc, char **argv)
 {
 	t_rules	*rules;
+	t_philo	**philos;
 
 	rules = parse_input(argc, argv);
-	free_all(rules);
+	philos = NULL;
+	if (!rules)
+		return (1);
+	free_all(rules, philos);
 	return (0);
 }
