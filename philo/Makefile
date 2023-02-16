@@ -5,7 +5,7 @@ CFLAGS			= -Wall -Wextra -Werror
 
 SRC				= $(addprefix $(SRC_DIR)/, $(SRC_FILES))
 SRC_DIR			= src
-SRC_FILES		= main.c
+SRC_FILES		= main.c utils.c input.c
 
 OBJ				= $(addprefix $(OBJ_DIR)/, $(OBJ_FILES))
 OBJ_DIR			= obj
@@ -20,18 +20,57 @@ LGREEN			= "\033[92m"
 DEFAULT			= "\033[39m"
 RED				= "\033[31m"
 
+ifeq ($(OS),Windows_NT)
+else
+	UNAME_S := $(shell uname -s)
+	ifeq ($(UNAME_S),Linux)
+#		LINK_FLAGS += -ltinfo
+		LSANLFLAGS := -rdynamic -LLeakSanitizer -llsan -ldl -lstdc++
+	endif
+	ifeq ($(UNAME_S),Darwin)
+		LSANLFLAGS := -LLeakSanitizer -llsan -lc++
+	endif
+endif
+
 all:			obj_dir $(NAME)
 
 $(NAME):		$(OBJ) | $(HDR)
-				@$(CC) $^ -o $@ $(CFLAGS)
+				@$(CC) $^ -o $@ $(CFLAGS) $(LINK)
 				@echo $(GREEN)Compiled$(DEFAULT) $@
 
 $(OBJ_DIR)/%.o:	$(SRC_DIR)/%.c
 				@echo $(LGREEN)Compiling$(DEFAULT) $<
 				@$(CC) -c $< $(CFLAGS) -o $@
 
-run: all
-	@./$(NAME)
+run:			all
+				@./$(NAME) $(RUN_ARGS)
+
+LSAN = LeakSanitizer
+LSANLIB = /LeakSanitizer/liblsan.a
+
+lsan: 			CFLAGS += -ILeakSanitizer -Wno-gnu-include-next
+lsan:			LINK += $(LSANLFLAGS)
+lsan:			fclean $(LSANLIB)
+lsan:			all
+
+dev:			lsan
+				@./$(NAME) $(RUN_ARGS)
+
+ifeq (dev,$(firstword $(MAKECMDGOALS)))
+  RUN_ARGS := $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
+  $(eval $(RUN_ARGS):;@:)
+endif
+ifeq (run,$(firstword $(MAKECMDGOALS)))
+  RUN_ARGS := $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
+  $(eval $(RUN_ARGS):;@:)
+endif
+
+$(LSAN):
+				git clone https://github.com/mhahnFr/LeakSanitizer.git
+
+$(LSANLIB): 	$(LSAN)
+				@$(MAKE) -C LeakSanitizer
+				@echo $(LGREEN)Compiling$(DEFAULT) $<
 
 clean:
 				@$(RM) $(OBJ)
@@ -50,4 +89,4 @@ re:
 obj_dir:
 				@mkdir -p $(OBJ_DIR)
 
-.PHONY:			all clean fclean re obj_dir run
+.PHONY:			all clean fclean re obj_dir run lsan dev

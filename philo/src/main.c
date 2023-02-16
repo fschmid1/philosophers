@@ -1,6 +1,10 @@
 #include "../include/philo.h"
 
-int	main()
+int	main(int argc, char **argv)
 {
-	printf("%sPhilo%s\n", RED, DEFAULT);
+	t_rules	*rules;
+
+	rules = parse_input(argc, argv);
+	free_all(rules);
+	return (0);
 }
