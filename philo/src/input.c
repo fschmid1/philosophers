@@ -6,7 +6,7 @@
 /*   By: fschmid <fschmid@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 14:19:27 by fschmid           #+#    #+#             */
-/*   Updated: 2023/02/27 14:19:27 by fschmid          ###   ########.fr       */
+/*   Updated: 2023/02/27 15:56:28 by fschmid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,8 @@ static bool	check_size(int argc, char **argv)
 
 static bool	check_input(int argc, char **argv)
 {
-	if (argc != 6)
-		return (printf("%sFive arguments are needed%s\n", RED, DEFAULT), false);
+	if (argc != 6 && argc != 5)
+		return (printf("%sFour arguments are needed%s\n", RED, DEFAULT), false);
 	if (!check_number(argc, argv))
 		return (printf("%sArguments must all be numbers%s\n",
 				RED, DEFAULT), false);
@@ -60,13 +60,14 @@ static bool	check_input(int argc, char **argv)
 	return (true);
 }
 
-static void	set_rules(t_rules *rules, char **argv)
+static void	set_rules(t_rules *rules, int argc, char **argv)
 {
 	rules->amount = ft_atol(argv[1]);
 	rules->time_to_die = ft_atol(argv[2]);
 	rules->time_to_eat = ft_atol(argv[3]);
 	rules->time_to_sleep = ft_atol(argv[4]);
-	rules->number_of_eat = ft_atol(argv[5]);
+	if (argc == 6)
+		rules->number_of_eat = ft_atol(argv[5]);
 	rules->start = 0;
 }
 
@@ -79,6 +80,6 @@ t_rules	*parse_input(int argc, char **argv)
 	rules = malloc(sizeof(t_rules));
 	if (!rules)
 		return (NULL);
-	set_rules(rules, argv);
+	set_rules(rules, argc, argv);
 	return (rules);
 }
