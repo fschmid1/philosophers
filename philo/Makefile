@@ -42,9 +42,6 @@ $(OBJ_DIR)/%.o:	$(SRC_DIR)/%.c
 				@echo $(LGREEN)Compiling$(DEFAULT) $<
 				@$(CC) -c $< $(CFLAGS) -o $@
 
-run:			all
-				@./$(NAME) $(RUN_ARGS)
-
 LSAN = LeakSanitizer
 LSANLIB = /LeakSanitizer/liblsan.a
 
@@ -52,18 +49,6 @@ lsan: 			CFLAGS += -ILeakSanitizer -Wno-gnu-include-next
 lsan:			LINK += $(LSANLFLAGS)
 lsan:			fclean $(LSANLIB)
 lsan:			all
-
-dev:			lsan
-				@./$(NAME) $(RUN_ARGS)
-
-ifeq (dev,$(firstword $(MAKECMDGOALS)))
-  RUN_ARGS := $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
-  $(eval $(RUN_ARGS):;@:)
-endif
-ifeq (run,$(firstword $(MAKECMDGOALS)))
-  RUN_ARGS := $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
-  $(eval $(RUN_ARGS):;@:)
-endif
 
 $(LSAN):
 				git clone https://github.com/mhahnFr/LeakSanitizer.git
@@ -89,4 +74,4 @@ re:
 obj_dir:
 				@mkdir -p $(OBJ_DIR)
 
-.PHONY:			all clean fclean re obj_dir run lsan dev
+.PHONY:			all clean fclean re obj_dir lsan
