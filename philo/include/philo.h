@@ -6,30 +6,30 @@
 /*   By: fschmid <fschmid@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 14:19:19 by fschmid           #+#    #+#             */
-/*   Updated: 2023/02/27 14:19:20 by fschmid          ###   ########.fr       */
+/*   Updated: 2023/02/27 14:20:47 by fschmid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILO_H
-#define PHILO_H
+# define PHILO_H
 
-#include <pthread.h>
-#include <stdbool.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <sys/time.h>
-#include <unistd.h>
+# include <pthread.h>
+# include <stdbool.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <sys/time.h>
+# include <unistd.h>
 
-#define INT_MAX 2147483647
-#define INT_MIN -2147483648
+# define INT_MAX 2147483647
+# define INT_MIN -2147483648
 
-#define RED "\033[0;31m"
-#define DEFAULT "\033[0m"
-#define YELLOW "\33[0;33m"
-#define BLUE "\033[0;34m"
-#define PURPLE "\033[0;35m"
-#define CYAN "\033[0;36m"
-#define GREEN "\033[32m"
+# define RED "\033[0;31m"
+# define DEFAULT "\033[0m"
+# define YELLOW "\33[0;33m"
+# define BLUE "\033[0;34m"
+# define PURPLE "\033[0;35m"
+# define CYAN "\033[0;36m"
+# define GREEN "\033[32m"
 
 typedef struct s_rules
 {
@@ -54,7 +54,7 @@ typedef struct s_philo
 	pthread_mutex_t	check;
 }	t_philo;
 
-t_rules *parse_input(int argc, char **argv);
+t_rules	*parse_input(int argc, char **argv);
 long	ft_atol(const char *str);
 int		ft_isdigit(int arg);
 size_t	ft_strlen(const char *str);
