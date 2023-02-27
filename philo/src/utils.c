@@ -65,9 +65,6 @@ void	free_all(t_rules *rules, t_philo **philos)
 
 void	print_philo(t_philo *philo, char *color, char *state)
 {
-	struct timeval	current_time;
-
-	gettimeofday(&current_time, NULL);
-	printf("%s%ld %d %s%s", color, current_time.tv_sec * 1000,
+	printf("%s%ld %d %s%s", color, current_time(),
 		philo->number, state, DEFAULT);
 }

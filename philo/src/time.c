@@ -1,4 +1,4 @@
-#nclude "../include/philo.h"
+#include "../include/philo.h"
 
 long	current_time(void)
 {
@@ -18,4 +18,3 @@ void	ft_sleep(long ms)
 	while (current_time() < end)
 		usleep(200);
 }
-
