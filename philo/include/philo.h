@@ -6,7 +6,7 @@
 /*   By: fschmid <fschmid@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 14:19:19 by fschmid           #+#    #+#             */
-/*   Updated: 2023/02/27 15:25:15 by fschmid          ###   ########.fr       */
+/*   Updated: 2023/02/27 16:22:16 by fschmid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,5 +65,8 @@ long	current_time(void);
 t_philo	**create_philos(t_rules *rules);
 void	*handle_thread(void *arg);
 void	create_threads(t_philo **philos);
+void	thinking(t_philo *philo);
+void	eating(t_philo *philo);
+void	sleeping(t_philo *philo);
 
 #endif

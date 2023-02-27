@@ -6,7 +6,7 @@
 /*   By: fschmid <fschmid@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 14:19:31 by fschmid           #+#    #+#             */
-/*   Updated: 2023/02/27 15:53:13 by fschmid          ###   ########.fr       */
+/*   Updated: 2023/02/27 16:16:33 by fschmid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,5 +84,5 @@ void	free_all(t_rules *rules, t_philo **philos)
 void	print_philo(t_philo *philo, char *color, char *state)
 {
 	printf("%s%ld %d %s%s", color, current_time(),
-		philo->number, state, DEFAULT);
+		philo->number + 1, state, DEFAULT);
 }

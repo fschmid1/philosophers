@@ -6,7 +6,7 @@
 /*   By: fschmid <fschmid@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 14:30:47 by fschmid           #+#    #+#             */
-/*   Updated: 2023/02/27 15:44:43 by fschmid          ###   ########.fr       */
+/*   Updated: 2023/02/27 16:16:23 by fschmid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ t_philo	**create_philos(t_rules *rules)
 	int		i;
 	t_philo	**philos;
 
-	philos = malloc(sizeof(t_philo) * rules->amount);
+	philos = malloc(sizeof(t_philo) * (rules->amount + 1));
 	philos[rules->amount] = NULL;
 	i = -1;
 	while (++i < rules->amount)
@@ -52,5 +52,6 @@ void	*handle_thread(void *arg)
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
+
 	pthread_exit(NULL);
 }
