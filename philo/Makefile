@@ -5,7 +5,7 @@ CFLAGS			= -Wall -Wextra -Werror
 
 SRC				= $(addprefix $(SRC_DIR)/, $(SRC_FILES))
 SRC_DIR			= src
-SRC_FILES		= main.c utils.c input.c time.c
+SRC_FILES		= main.c utils.c input.c time.c setup.c
 
 OBJ				= $(addprefix $(OBJ_DIR)/, $(OBJ_FILES))
 OBJ_DIR			= obj

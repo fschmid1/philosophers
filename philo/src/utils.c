@@ -6,11 +6,12 @@
 /*   By: fschmid <fschmid@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 14:19:31 by fschmid           #+#    #+#             */
-/*   Updated: 2023/02/27 14:19:31 by fschmid          ###   ########.fr       */
+/*   Updated: 2023/02/27 15:19:19 by fschmid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
+#include <pthread.h>
 
 long	ft_atol(const char *str)
 {
@@ -71,7 +72,12 @@ void	free_all(t_rules *rules, t_philo **philos)
 	free(rules);
 	i = -1;
 	while (philos && philos[++i])
+	{
+		pthread_mutex_destroy(&philos[i]->left);
+		pthread_mutex_destroy(&philos[i]->eat_mutex);
+		pthread_mutex_destroy(&philos[i]->check);
 		free(philos[i]);
+	}
 	free(philos);
 }
 

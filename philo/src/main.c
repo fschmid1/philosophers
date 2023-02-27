@@ -6,7 +6,7 @@
 /*   By: fschmid <fschmid@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 14:19:10 by fschmid           #+#    #+#             */
-/*   Updated: 2023/02/27 14:19:10 by fschmid          ###   ########.fr       */
+/*   Updated: 2023/02/27 15:25:23 by fschmid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ int	main(int argc, char **argv)
 	philos = NULL;
 	if (!rules)
 		return (1);
+	philos = create_philos(rules);
+	create_threads(philos);
 	free_all(rules, philos);
 	return (0);
 }

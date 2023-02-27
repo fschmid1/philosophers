@@ -6,7 +6,7 @@
 /*   By: fschmid <fschmid@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 14:19:19 by fschmid           #+#    #+#             */
-/*   Updated: 2023/02/27 14:20:47 by fschmid          ###   ########.fr       */
+/*   Updated: 2023/02/27 15:25:15 by fschmid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,5 +62,8 @@ void	free_all(t_rules *rules, t_philo **philos);
 void	print_philo(t_philo *philo, char *color, char *state);
 void	ft_sleep(long ms);
 long	current_time(void);
+t_philo	**create_philos(t_rules *rules);
+void	*handle_thread(void *arg);
+void	create_threads(t_philo **philos);
 
 #endif
