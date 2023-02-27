@@ -6,22 +6,21 @@
 /*   By: fschmid <fschmid@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 14:30:47 by fschmid           #+#    #+#             */
-/*   Updated: 2023/02/27 16:16:23 by fschmid          ###   ########.fr       */
+/*   Updated: 2023/02/27 16:30:10 by fschmid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
 
-t_philo	**create_philos(t_rules *rules)
+t_philo **create_philos(t_rules *rules)
 {
-	int		i;
-	t_philo	**philos;
+	int i;
+	t_philo **philos;
 
 	philos = malloc(sizeof(t_philo) * (rules->amount + 1));
 	philos[rules->amount] = NULL;
 	i = -1;
-	while (++i < rules->amount)
-	{
+	while (++i < rules->amount) {
 		philos[i] = malloc(sizeof(t_philo));
 		philos[i]->number = i;
 		philos[i]->rules = rules;
@@ -38,20 +37,24 @@ t_philo	**create_philos(t_rules *rules)
 	return (philos);
 }
 
-void	create_threads(t_philo **philos)
+void create_threads(t_philo **philos)
 {
-	int	i;
+	int i;
 
 	i = -1;
 	while (philos && philos[++i])
 		pthread_create(&philos[i]->id, NULL, handle_thread, philos[i]);
 }
 
-void	*handle_thread(void *arg)
+void *handle_thread(void *arg)
 {
-	t_philo	*philo;
+	t_philo *philo;
 
 	philo = (t_philo *)arg;
-
+	while (true) {
+		eating(philo);
+		sleeping(philo);
+		thinking(philo);
+	}
 	pthread_exit(NULL);
 }
