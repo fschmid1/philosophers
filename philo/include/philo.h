@@ -6,7 +6,7 @@
 /*   By: fschmid <fschmid@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 14:19:19 by fschmid           #+#    #+#             */
-/*   Updated: 2023/02/27 16:22:16 by fschmid          ###   ########.fr       */
+/*   Updated: 2023/02/28 15:56:28 by fschmid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ typedef struct s_philo
 
 t_rules	*parse_input(int argc, char **argv);
 long	ft_atol(const char *str);
-int		ft_isdigit(int arg);
+bool	ft_isdigit(int arg);
 size_t	ft_strlen(const char *str);
 void	free_all(t_rules *rules, t_philo **philos);
 void	print_philo(t_philo *philo, char *color, char *state);

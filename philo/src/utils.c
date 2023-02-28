@@ -6,7 +6,7 @@
 /*   By: fschmid <fschmid@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 14:19:31 by fschmid           #+#    #+#             */
-/*   Updated: 2023/02/27 16:16:33 by fschmid          ###   ########.fr       */
+/*   Updated: 2023/02/28 15:56:05 by fschmid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,12 @@ long	ft_atol(const char *str)
 	return (out * vz);
 }
 
-int	ft_isdigit(int arg)
+bool	ft_isdigit(int arg)
 {
 	if (arg >= '0' && arg <= '9')
-		return (1);
+		return (true);
 	else
-		return (0);
+		return (false);
 }
 
 size_t	ft_strlen(const char *str)
