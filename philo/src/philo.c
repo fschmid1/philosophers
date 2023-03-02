@@ -57,6 +57,5 @@ void sleeping(t_philo *philo)
 
 void thinking(t_philo *philo)
 {
-
 	print_philo(philo, PURPLE, "is thinking");
 }

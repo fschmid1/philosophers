@@ -11,12 +11,34 @@
 /* ************************************************************************** */
 
 #include "../include/philo.h"
+#include <pthread.h>
+
+static bool	is_dead(t_philo *philo)
+{
+	pthread_mutex_lock(&philo->eat_mutex);
+	if (philo->last_eating + philo->rules->time_to_eat < current_time())
+		return (true);
+	pthread_mutex_unlock(&philo->eat_mutex);
+	return (false);
+}
 
 static void	*handle_waitress_thread(void *arg)
 {
 	t_waitress	*waitress;
+	int			i;
 
 	waitress = (t_waitress *) arg;
+	while (true)
+	{
+		i = -1;
+		while (++i < waitress->rules->amount)
+		{
+			pthread_mutex_lock(&waitress->philos[i]->check);
+			if (is_dead(waitress->philos[i]))
+				waitress->philos[i]->dead = true;
+			pthread_mutex_unlock(&waitress->philos[i]->check);
+		}
+	}
 	return (NULL);
 }
 

@@ -49,6 +49,7 @@ typedef struct s_philo
 	long			times_to_eat;
 	t_rules			*rules;
 	pthread_t		id;
+	bool			dead;
 	pthread_mutex_t	left;
 	pthread_mutex_t	*right;
 	pthread_mutex_t	eat_mutex;
