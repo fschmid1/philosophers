@@ -6,7 +6,7 @@
 /*   By: fschmid <fschmid@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 14:19:19 by fschmid           #+#    #+#             */
-/*   Updated: 2023/02/28 15:56:28 by fschmid          ###   ########.fr       */
+/*   Updated: 2023/03/02 11:39:29 by fschmid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,13 @@
 
 typedef struct s_rules
 {
-	long	amount;
-	long	time_to_die;
-	long	time_to_eat;
-	long	time_to_sleep;
-	long	number_of_eat;
-	long	start;
+	long			amount;
+	long			time_to_die;
+	long			time_to_eat;
+	long			time_to_sleep;
+	long			times_to_eat;
+	long			start;
+	pthread_mutex_t	print_mutex;
 }	t_rules;
 
 typedef struct s_philo
@@ -54,6 +55,13 @@ typedef struct s_philo
 	pthread_mutex_t	check;
 }	t_philo;
 
+typedef struct s_waitress
+{
+	t_philo		**philos;
+	t_rules		*rules;
+	pthread_t	id;
+}	t_waitress;
+
 t_rules	*parse_input(int argc, char **argv);
 long	ft_atol(const char *str);
 bool	ft_isdigit(int arg);
@@ -68,5 +76,6 @@ void	create_threads(t_philo **philos);
 void	thinking(t_philo *philo);
 void	eating(t_philo *philo);
 void	sleeping(t_philo *philo);
+void	start_waitress(t_philo **philos, t_rules *rules);
 
 #endif

@@ -6,11 +6,12 @@
 /*   By: fschmid <fschmid@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 14:19:27 by fschmid           #+#    #+#             */
-/*   Updated: 2023/02/27 16:01:44 by fschmid          ###   ########.fr       */
+/*   Updated: 2023/03/02 11:39:23 by fschmid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
+#include <pthread.h>
 
 static bool	check_number(int argc, char **argv)
 {
@@ -67,8 +68,9 @@ static void	set_rules(t_rules *rules, int argc, char **argv)
 	rules->time_to_eat = ft_atol(argv[3]);
 	rules->time_to_sleep = ft_atol(argv[4]);
 	if (argc == 6)
-		rules->number_of_eat = ft_atol(argv[5]);
+		rules->times_to_eat = ft_atol(argv[5]);
 	rules->start = 0;
+	pthread_mutex_init(&rules->print_mutex, NULL);
 }
 
 t_rules	*parse_input(int argc, char **argv)

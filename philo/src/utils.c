@@ -6,7 +6,7 @@
 /*   By: fschmid <fschmid@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 14:19:31 by fschmid           #+#    #+#             */
-/*   Updated: 2023/02/28 15:56:05 by fschmid          ###   ########.fr       */
+/*   Updated: 2023/03/02 11:40:47 by fschmid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,11 +78,14 @@ void	free_all(t_rules *rules, t_philo **philos)
 		pthread_mutex_destroy(&philos[i]->check);
 		free(philos[i]);
 	}
+	pthread_mutex_destroy(&rules->print_mutex);
 	free(philos);
 }
 
 void	print_philo(t_philo *philo, char *color, char *state)
 {
-	printf("%s%ld %d %s%s", color, current_time(),
+	pthread_mutex_lock(&philo->rules->print_mutex);
+	printf("%s%ld %d %s%s\n", color, current_time(),
 		philo->number + 1, state, DEFAULT);
+	pthread_mutex_unlock(&philo->rules->print_mutex);
 }
