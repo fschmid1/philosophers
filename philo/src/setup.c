@@ -6,11 +6,12 @@
 /*   By: fschmid <fschmid@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 14:30:47 by fschmid           #+#    #+#             */
-/*   Updated: 2023/02/27 16:30:10 by fschmid          ###   ########.fr       */
+/*   Updated: 2023/03/02 13:01:33 by fschmid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
+#include <pthread.h>
 
 t_philo **create_philos(t_rules *rules)
 {
@@ -44,6 +45,15 @@ void create_threads(t_philo **philos)
 	i = -1;
 	while (philos && philos[++i])
 		pthread_create(&philos[i]->id, NULL, handle_thread, philos[i]);
+}
+
+void	detach_threads(t_rules *rules, t_philo **philos)
+{
+	int	i;
+
+	i = -1;
+	while (++i < rules->amount)
+		pthread_detach(philos[i]->id);
 }
 
 void *handle_thread(void *arg)

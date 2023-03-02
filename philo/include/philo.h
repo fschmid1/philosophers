@@ -6,7 +6,7 @@
 /*   By: fschmid <fschmid@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 14:19:19 by fschmid           #+#    #+#             */
-/*   Updated: 2023/03/02 11:39:29 by fschmid          ###   ########.fr       */
+/*   Updated: 2023/03/02 13:10:33 by fschmid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,5 +77,6 @@ void	thinking(t_philo *philo);
 void	eating(t_philo *philo);
 void	sleeping(t_philo *philo);
 void	start_waitress(t_philo **philos, t_rules *rules);
+void	detach_threads(t_rules *rules, t_philo **philos);
 
 #endif
