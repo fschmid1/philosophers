@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   setup.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fschmid <fschmid@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fschmid <fschmid@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 14:30:47 by fschmid           #+#    #+#             */
-/*   Updated: 2023/03/03 19:02:01 by fschmid          ###   ########.fr       */
+/*   Updated: 2023/03/03 19:45:34 by fschmid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_philo	**create_philos(t_rules *rules)
 	while (++i < rules->amount)
 	{
 		philos[i] = malloc(sizeof(t_philo));
-		philos[i]->number = i + i;
+		philos[i]->number = i + 1;
 		philos[i]->rules = rules;
 		philos[i]->times_to_eat = rules->times_to_eat;
 		philos[i]->last_eating = rules->start;
