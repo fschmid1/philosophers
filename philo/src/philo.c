@@ -42,7 +42,7 @@ void	eating(t_philo *philo)
 	pthread_mutex_unlock(philo->right);
 }
 
-void sleeping(t_philo *philo)
+void	sleeping(t_philo *philo)
 {
 	if (philo->dead)
 		return ;
@@ -50,7 +50,7 @@ void sleeping(t_philo *philo)
 	ft_sleep(philo->rules->time_to_sleep);
 }
 
-void thinking(t_philo *philo)
+void	thinking(t_philo *philo)
 {
 	if (philo->dead)
 		return ;

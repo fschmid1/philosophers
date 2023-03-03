@@ -14,7 +14,8 @@
 
 static bool	is_dead(t_philo *philo)
 {
-	if (current_time() - philo->last_eating >= (unsigned long) philo->rules->time_to_die)
+	if (current_time() - philo->last_eating
+		>= (unsigned long) philo->rules->time_to_die)
 		return (true);
 	return (false);
 }
@@ -25,7 +26,7 @@ static void	*handle_waitress_thread(void *arg)
 	int			i;
 
 	waitress = (t_waitress *) arg;
-	i =  0;
+	i = 0;
 	while (check_life(waitress->philos))
 	{
 		if (!waitress->philos[i])
@@ -35,7 +36,8 @@ static void	*handle_waitress_thread(void *arg)
 			break ;
 		if (is_dead(waitress->philos[i]))
 		{
-			printf("%s%ld\t%d\t%s%s\n", RED, current_time() - waitress->rules->start,
+			printf("%s%ld\t%d\t%s%s\n", RED,
+				current_time() - waitress->rules->start,
 				waitress->philos[i]->number + 1, "died", DEFAULT);
 			pthread_mutex_destroy(&waitress->rules->print_mutex);
 			break ;
@@ -46,7 +48,7 @@ static void	*handle_waitress_thread(void *arg)
 	return (NULL);
 }
 
-void	start_waitress(t_philo **philos,  t_rules  *rules)
+void	start_waitress(t_philo **philos, t_rules *rules)
 {
 	t_waitress	*waitress;
 

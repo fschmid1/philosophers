@@ -13,10 +13,10 @@
 #include "../include/philo.h"
 #include <pthread.h>
 
-t_philo **create_philos(t_rules *rules)
+t_philo	**create_philos(t_rules *rules)
 {
-	int i;
-	t_philo **philos;
+	int		i;
+	t_philo	**philos;
 
 	philos = malloc(sizeof(t_philo) * (rules->amount + 1));
 	philos[rules->amount] = NULL;
@@ -41,9 +41,9 @@ t_philo **create_philos(t_rules *rules)
 	return (philos);
 }
 
-void create_threads(t_philo **philos)
+void	create_threads(t_philo **philos)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	while (philos && philos[++i])
@@ -59,9 +59,9 @@ void	detach_threads(t_philo **philos)
 		pthread_detach(philos[i]->id);
 }
 
-void *handle_thread(void *arg)
+void	*handle_thread(void *arg)
 {
-	t_philo *philo;
+	t_philo	*philo;
 
 	philo = (t_philo *)arg;
 	if (philo->number % 2)

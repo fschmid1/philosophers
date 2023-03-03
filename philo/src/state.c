@@ -1,5 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   state.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fschmid <fschmid@student.42heilbronn.de    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/03/03 19:27:18 by fschmid           #+#    #+#             */
+/*   Updated: 2023/03/03 19:27:26 by fschmid          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include  "../include/philo.h"
-#include <stdio.h>
 
 bool	check_life(t_philo **philos)
 {
@@ -26,4 +37,3 @@ bool	check_finished(t_philo **philos)
 	}
 	return (true);
 }
-
