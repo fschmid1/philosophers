@@ -62,6 +62,6 @@ void	start_waitress(t_philo **philos,  t_rules  *rules)
 	pthread_create(&waitress->id, NULL, handle_waitress_thread, waitress);
 	pthread_join(waitress->id, NULL);
 	pthread_mutex_destroy(&rules->print_mutex);
-	detach_threads(rules, philos);
+	detach_threads(philos);
 	free(waitress);
 }

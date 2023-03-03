@@ -50,12 +50,12 @@ void create_threads(t_philo **philos)
 		pthread_create(&philos[i]->id, NULL, handle_thread, philos[i]);
 }
 
-void	detach_threads(t_rules *rules, t_philo **philos)
+void	detach_threads(t_philo **philos)
 {
 	int	i;
 
 	i = -1;
-	while (++i < rules->amount)
+	while (philos && philos[++i])
 		pthread_detach(philos[i]->id);
 }
 
@@ -69,11 +69,14 @@ void *handle_thread(void *arg)
 	while (!philo->dead)
 	{
 		eating(philo);
+		pthread_mutex_lock(&philo->check);
 		if (philo->times_to_eat == 0)
 		{
+			printf("finished2\n");
 			philo->finished = true;
 			break ;
 		}
+		pthread_mutex_unlock(&philo->check);
 		sleeping(philo);
 		thinking(philo);
 	}

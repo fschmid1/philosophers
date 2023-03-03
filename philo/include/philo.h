@@ -80,7 +80,7 @@ void	thinking(t_philo *philo);
 void	eating(t_philo *philo);
 void	sleeping(t_philo *philo);
 void	start_waitress(t_philo **philos, t_rules *rules);
-void	detach_threads(t_rules *rules, t_philo **philos);
+void	detach_threads(t_philo **philos);
 bool	check_finished(t_philo **philos);
 bool	check_life(t_philo **philos);
 
