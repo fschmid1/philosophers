@@ -65,23 +65,23 @@ typedef struct s_waitress
 	pthread_t	id;
 }	t_waitress;
 
-t_rules	*parse_input(int argc, char **argv);
-long	ft_atol(const char *str);
-bool	ft_isdigit(int arg);
-size_t	ft_strlen(const char *str);
-void	free_all(t_rules *rules, t_philo **philos);
-void	print_philo(t_philo *philo, char *color, char *state);
-void	ft_sleep(long ms);
-long	current_time(void);
-t_philo	**create_philos(t_rules *rules);
-void	*handle_thread(void *arg);
-void	create_threads(t_philo **philos);
-void	thinking(t_philo *philo);
-void	eating(t_philo *philo);
-void	sleeping(t_philo *philo);
-void	start_waitress(t_philo **philos, t_rules *rules);
-void	detach_threads(t_philo **philos);
-bool	check_finished(t_philo **philos);
-bool	check_life(t_philo **philos);
+t_rules			*parse_input(int argc, char **argv);
+long			ft_atol(const char *str);
+bool			ft_isdigit(int arg);
+size_t			ft_strlen(const char *str);
+void			free_all(t_rules *rules, t_philo **philos);
+void			print_philo(t_philo *philo, char *color, char *state);
+void			ft_sleep(long ms);
+unsigned long	current_time(void);
+t_philo			**create_philos(t_rules *rules);
+void			*handle_thread(void *arg);
+void			create_threads(t_philo **philos);
+void			thinking(t_philo *philo);
+void			eating(t_philo *philo);
+void			sleeping(t_philo *philo);
+void			start_waitress(t_philo **philos, t_rules *rules);
+void			detach_threads(t_philo **philos);
+bool			check_finished(t_philo **philos);
+bool			check_life(t_philo **philos);
 
 #endif

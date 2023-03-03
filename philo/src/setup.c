@@ -6,7 +6,7 @@
 /*   By: fschmid <fschmid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 14:30:47 by fschmid           #+#    #+#             */
-/*   Updated: 2023/03/03 13:24:48 by fschmid          ###   ########.fr       */
+/*   Updated: 2023/03/03 19:02:01 by fschmid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,15 +68,14 @@ void *handle_thread(void *arg)
 		ft_sleep(3);
 	while (!philo->dead)
 	{
+		pthread_mutex_lock(&philo->rules->print_mutex);
+		pthread_mutex_unlock(&philo->rules->print_mutex);
 		eating(philo);
-		pthread_mutex_lock(&philo->check);
 		if (philo->times_to_eat == 0)
 		{
-			printf("finished2\n");
 			philo->finished = true;
 			break ;
 		}
-		pthread_mutex_unlock(&philo->check);
 		sleeping(philo);
 		thinking(philo);
 	}

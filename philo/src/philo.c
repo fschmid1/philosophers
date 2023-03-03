@@ -6,7 +6,7 @@
 /*   By: fschmid <fschmid@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 16:20:48 by fschmid           #+#    #+#             */
-/*   Updated: 2023/03/02 10:52:19 by fschmid          ###   ########.fr       */
+/*   Updated: 2023/03/03 19:01:38 by fschmid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,31 +16,23 @@
 static void	use_right_fork(t_philo *philo)
 {
 	pthread_mutex_lock(philo->right);
-	print_philo(philo, GREEN, "has taken a fork");
+	print_philo(philo, GREEN, "has taken right fork");
 }
 
 static void	use_left_fork(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->left);
-	print_philo(philo, GREEN, "has taken a fork");
+	print_philo(philo, GREEN, "has taken left fork");
 }
 
 void	eating(t_philo *philo)
 {
-	if (philo->number % 2)
-	{
-		use_left_fork(philo);
-		use_right_fork(philo);
-	}
-	else
-	{
-		use_right_fork(philo);
-		use_left_fork(philo);
-	}
-	pthread_mutex_lock(&philo->eat_mutex);
-	philo->last_eating = current_time();
+	if (philo->dead)
+		return ;
+	use_left_fork(philo);
+	use_right_fork(philo);
 	print_philo(philo, CYAN, "is eating");
-	pthread_mutex_unlock(&philo->eat_mutex);
+	philo->last_eating = current_time();
 	pthread_mutex_lock(&philo->check);
 	if (philo->times_to_eat > 0)
 		philo->times_to_eat -= 1;
@@ -52,11 +44,15 @@ void	eating(t_philo *philo)
 
 void sleeping(t_philo *philo)
 {
+	if (philo->dead)
+		return ;
 	print_philo(philo, PURPLE, "is sleeping");
 	ft_sleep(philo->rules->time_to_sleep);
 }
 
 void thinking(t_philo *philo)
 {
+	if (philo->dead)
+		return ;
 	print_philo(philo, PURPLE, "is thinking");
 }

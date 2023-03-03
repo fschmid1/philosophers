@@ -6,20 +6,16 @@
 /*   By: fschmid <fschmid@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 11:05:00 by fschmid           #+#    #+#             */
-/*   Updated: 2023/03/02 13:07:48 by fschmid          ###   ########.fr       */
+/*   Updated: 2023/03/03 19:02:52 by fschmid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
-#include <pthread.h>
-#include <stdio.h>
 
 static bool	is_dead(t_philo *philo)
 {
-	pthread_mutex_lock(&philo->eat_mutex);
-	if (philo->last_eating + philo->rules->time_to_die <= current_time())
+	if (current_time() - philo->last_eating >= (unsigned long) philo->rules->time_to_die)
 		return (true);
-	pthread_mutex_unlock(&philo->eat_mutex);
 	return (false);
 }
 
@@ -36,13 +32,11 @@ static void	*handle_waitress_thread(void *arg)
 			i = 0;
 		pthread_mutex_lock(&waitress->rules->print_mutex);
 		if (check_finished(waitress->philos))
-		{
-			printf("finished\n");
 			break ;
-		}
 		if (is_dead(waitress->philos[i]))
 		{
-			printf("dead\n");
+			printf("%s%ld\t%d\t%s%s\n", RED, current_time() - waitress->rules->start,
+				waitress->philos[i]->number + 1, "died", DEFAULT);
 			pthread_mutex_destroy(&waitress->rules->print_mutex);
 			break ;
 		}
