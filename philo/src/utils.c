@@ -74,8 +74,6 @@ void	free_all(t_rules *rules, t_philo **philos)
 	while (philos && philos[++i])
 	{
 		pthread_mutex_destroy(&philos[i]->left);
-		pthread_mutex_destroy(&philos[i]->eat_mutex);
-		pthread_mutex_destroy(&philos[i]->check);
 		free(philos[i]);
 	}
 	free(philos);
@@ -85,6 +83,6 @@ void	print_philo(t_philo *philo, char *color, char *state)
 {
 	pthread_mutex_lock(&philo->rules->print_mutex);
 	printf("%s%ld\t%d\t%s%s\n", color, current_time() - philo->rules->start,
-		philo->number + 1, state, DEFAULT);
+		philo->number, state, DEFAULT);
 	pthread_mutex_unlock(&philo->rules->print_mutex);
 }

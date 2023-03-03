@@ -38,7 +38,7 @@ static void	*handle_waitress_thread(void *arg)
 		{
 			printf("%s%ld\t%d\t%s%s\n", RED,
 				current_time() - waitress->rules->start,
-				waitress->philos[i]->number + 1, "died", DEFAULT);
+				waitress->philos[i]->number, "died", DEFAULT);
 			pthread_mutex_destroy(&waitress->rules->print_mutex);
 			break ;
 		}

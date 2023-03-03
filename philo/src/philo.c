@@ -33,10 +33,8 @@ void	eating(t_philo *philo)
 	use_right_fork(philo);
 	print_philo(philo, CYAN, "is eating");
 	philo->last_eating = current_time();
-	pthread_mutex_lock(&philo->check);
 	if (philo->times_to_eat > 0)
 		philo->times_to_eat -= 1;
-	pthread_mutex_unlock(&philo->check);
 	ft_sleep(philo->rules->time_to_eat);
 	pthread_mutex_unlock(&philo->left);
 	pthread_mutex_unlock(philo->right);

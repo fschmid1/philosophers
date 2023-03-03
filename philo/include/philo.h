@@ -54,8 +54,6 @@ typedef struct s_philo
 	bool			finished;
 	pthread_mutex_t	left;
 	pthread_mutex_t	*right;
-	pthread_mutex_t	eat_mutex;
-	pthread_mutex_t	check;
 }	t_philo;
 
 typedef struct s_waitress
