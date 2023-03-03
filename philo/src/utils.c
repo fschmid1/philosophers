@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "../include/philo.h"
-#include <pthread.h>
 
 long	ft_atol(const char *str)
 {

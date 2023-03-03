@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "../include/philo.h"
-#include <pthread.h>
 
 static bool	check_number(int argc, char **argv)
 {

@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "../include/philo.h"
-#include <pthread.h>
 
 t_philo	**create_philos(t_rules *rules)
 {

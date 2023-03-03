@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "../include/philo.h"
-#include <pthread.h>
 
 static void	use_right_fork(t_philo *philo)
 {
