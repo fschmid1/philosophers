@@ -39,6 +39,7 @@ typedef struct s_rules
 	long			time_to_sleep;
 	long			times_to_eat;
 	long			start;
+	bool			finished;
 	pthread_mutex_t	print_mutex;
 }	t_rules;
 
@@ -50,6 +51,7 @@ typedef struct s_philo
 	t_rules			*rules;
 	pthread_t		id;
 	bool			dead;
+	bool			finished;
 	pthread_mutex_t	left;
 	pthread_mutex_t	*right;
 	pthread_mutex_t	eat_mutex;
@@ -79,5 +81,7 @@ void	eating(t_philo *philo);
 void	sleeping(t_philo *philo);
 void	start_waitress(t_philo **philos, t_rules *rules);
 void	detach_threads(t_rules *rules, t_philo **philos);
+bool	check_finished(t_philo **philos);
+bool	check_life(t_philo **philos);
 
 #endif

@@ -25,7 +25,7 @@ static void	use_left_fork(t_philo *philo)
 	print_philo(philo, GREEN, "has taken a fork");
 }
 
-void eating(t_philo *philo)
+void	eating(t_philo *philo)
 {
 	if (philo->number % 2)
 	{
@@ -42,7 +42,8 @@ void eating(t_philo *philo)
 	print_philo(philo, CYAN, "is eating");
 	pthread_mutex_unlock(&philo->eat_mutex);
 	pthread_mutex_lock(&philo->check);
-	philo->times_to_eat -= 1;
+	if (philo->times_to_eat > 0)
+		philo->times_to_eat -= 1;
 	pthread_mutex_unlock(&philo->check);
 	ft_sleep(philo->rules->time_to_eat);
 	pthread_mutex_unlock(&philo->left);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   setup.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fschmid <fschmid@student.42heilbronn.de>   +#+  +:+       +#+        */
+/*   By: fschmid <fschmid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 14:30:47 by fschmid           #+#    #+#             */
-/*   Updated: 2023/03/02 13:01:33 by fschmid          ###   ########.fr       */
+/*   Updated: 2023/03/03 13:24:48 by fschmid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,10 @@ t_philo **create_philos(t_rules *rules)
 		philos[i] = malloc(sizeof(t_philo));
 		philos[i]->number = i;
 		philos[i]->rules = rules;
-		philos[i]->times_to_eat = rules->time_to_eat;
+		philos[i]->times_to_eat = rules->times_to_eat;
 		philos[i]->last_eating = rules->start;
 		philos[i]->dead = false;
+		philos[i]->finished = false;
 		pthread_mutex_init(&philos[i]->left, NULL);
 		if (i > 0)
 			philos[i - 1]->right = &philos[i]->left;
@@ -63,18 +64,18 @@ void *handle_thread(void *arg)
 	t_philo *philo;
 
 	philo = (t_philo *)arg;
-	while (true)
+	if (philo->number % 2)
+		ft_sleep(3);
+	while (!philo->dead)
 	{
-		pthread_mutex_lock(&philo->check);
-		if (philo->dead)
-		{
-			pthread_mutex_unlock(&philo->check);
-			return (print_philo(philo, RED, "died"), NULL);
-		}
-		pthread_mutex_unlock(&philo->check);
 		eating(philo);
+		if (philo->times_to_eat == 0)
+		{
+			philo->finished = true;
+			break ;
+		}
 		sleeping(philo);
 		thinking(philo);
 	}
-	pthread_exit(NULL);
+	return (NULL);
 }

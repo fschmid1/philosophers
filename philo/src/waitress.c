@@ -12,11 +12,12 @@
 
 #include "../include/philo.h"
 #include <pthread.h>
+#include <stdio.h>
 
 static bool	is_dead(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->eat_mutex);
-	if (philo->last_eating + philo->rules->time_to_eat < current_time())
+	if (philo->last_eating + philo->rules->time_to_die <= current_time())
 		return (true);
 	pthread_mutex_unlock(&philo->eat_mutex);
 	return (false);
@@ -28,16 +29,25 @@ static void	*handle_waitress_thread(void *arg)
 	int			i;
 
 	waitress = (t_waitress *) arg;
-	while (true)
+	i =  0;
+	while (check_life(waitress->philos))
 	{
-		i = -1;
-		while (++i < waitress->rules->amount)
+		if (!waitress->philos[i])
+			i = 0;
+		pthread_mutex_lock(&waitress->rules->print_mutex);
+		if (check_finished(waitress->philos))
 		{
-			pthread_mutex_lock(&waitress->philos[i]->check);
-			if (is_dead(waitress->philos[i]))
-				waitress->philos[i]->dead = true;
-			pthread_mutex_unlock(&waitress->philos[i]->check);
+			printf("finished\n");
+			break ;
 		}
+		if (is_dead(waitress->philos[i]))
+		{
+			printf("dead\n");
+			pthread_mutex_destroy(&waitress->rules->print_mutex);
+			break ;
+		}
+		pthread_mutex_unlock(&waitress->rules->print_mutex);
+		i++;
 	}
 	return (NULL);
 }
@@ -45,17 +55,13 @@ static void	*handle_waitress_thread(void *arg)
 void	start_waitress(t_philo **philos,  t_rules  *rules)
 {
 	t_waitress	*waitress;
-	void		*out;
 
 	waitress = malloc(sizeof(t_waitress));
 	waitress->philos = philos;
 	waitress->rules = rules;
 	pthread_create(&waitress->id, NULL, handle_waitress_thread, waitress);
-	pthread_join(waitress->id, &out);
-	pthread_mutex_lock(&rules->print_mutex);
+	pthread_join(waitress->id, NULL);
+	pthread_mutex_destroy(&rules->print_mutex);
 	detach_threads(rules, philos);
-	if (out)
-		printf("%s%ld\t%d\t%s%s\n", RED, current_time() - rules->start,
-			((t_philo *)  out)->number + 1, "died", DEFAULT);
 	free(waitress);
 }

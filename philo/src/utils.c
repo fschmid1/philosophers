@@ -78,7 +78,6 @@ void	free_all(t_rules *rules, t_philo **philos)
 		pthread_mutex_destroy(&philos[i]->check);
 		free(philos[i]);
 	}
-	pthread_mutex_destroy(&rules->print_mutex);
 	free(philos);
 }
 
